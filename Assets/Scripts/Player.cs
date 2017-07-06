@@ -16,3 +16,8 @@ public class Player : MonoBehaviour {
         c.Move(new Vector3(xMove, 0, 0) * speed * Time.deltaTime);
 	}
 }
+
+
+
+
+
