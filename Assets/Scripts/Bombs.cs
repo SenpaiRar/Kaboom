@@ -26,14 +26,13 @@ public class Bombs : MonoBehaviour {
 
     private void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Hit Something!");
         if (col.gameObject.tag == "Player")
         {
             if(OnPlayerExplode != null)
             {
                 OnPlayerExplode();
             }
-            Debug.Log("Destroyed this gameobject");
+
             Destroy(gameObject);
         }
     }

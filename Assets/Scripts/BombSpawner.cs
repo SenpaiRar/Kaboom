@@ -4,7 +4,7 @@ using System.Collections;
 public class BombSpawner : MonoBehaviour {
     //The bombs spawn in waves. The waves will be refered to as Spawns
 
-    public delegate void BombSpawnerDelegate(int numberofbombsdropped);
+    public delegate void BombSpawnerDelegate();
     public static event BombSpawnerDelegate BombDropped;
 
     public GameObject BombObject;
@@ -32,7 +32,7 @@ public class BombSpawner : MonoBehaviour {
                 StartCoroutine(DropBombs());
                 if (BombDropped != null)
                 {
-                    BombDropped(bombsPerSpawn);
+                    BombDropped();
                 }
             }
 

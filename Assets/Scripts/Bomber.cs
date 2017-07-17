@@ -6,11 +6,11 @@ public class Bomber : MonoBehaviour {
     Vector3 NextPoint; //Randomly generated point which the Bomber moves towards
     public float nMin; //Upper and Lower bound of the x value of NextPoint
     public float nMax;
-    public float Speed;
-    public float SpeedIncrement;
-    public float MaxWaveTimer;
-    public float TimeBetweenWaves;
-    private float WaveTimer;
+    public float Speed; //How fast the player goes. Note: This number should be small, around 1
+    public float SpeedIncrement; //WHen the speed increases, how much to add to Speed
+    public float MaxWaveTimer; //How long until the bomber stops and speeds up
+    public float TimeBetweenWaves; //How long does the bomber stop 
+    private float WaveTimer; 
 
     public delegate void BomberEvent();
     public static event BomberEvent OnWaveDone;
@@ -23,7 +23,7 @@ public class Bomber : MonoBehaviour {
 
     void LateUpdate() {
 
-        WaveTimer += 1 * Time.deltaTime;
+        WaveTimer += Time.deltaTime;
 
         if (WaveTimer > MaxWaveTimer)
         {
