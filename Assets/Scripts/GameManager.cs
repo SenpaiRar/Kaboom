@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	
 	
 	void Update () {
-        Debug.Log(Winpoint);
+
 	}
 
     void AddToWinPoint(int Nofbombs)

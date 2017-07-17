@@ -4,30 +4,41 @@ using System.Collections;
 public class BombSpawner : MonoBehaviour {
     //The bombs spawn in waves. The waves will be refered to as Spawns
 
-    public delegate void Bomber(int numberofbombsdropped);
-    public static event Bomber BombDropped;
+    public delegate void BombSpawnerDelegate(int numberofbombsdropped);
+    public static event BombSpawnerDelegate BombDropped;
 
     public GameObject BombObject;
     public float timeBetweenSpawns;
     public int bombsPerSpawn;
-    float currentTimeBetweenSpawns;
 
-    void Start () {
+    private float currentTimeBetweenSpawns;
+    private bool CanDropBombs;
+
+    void Start() {
+        CanDropBombs = true;
         currentTimeBetweenSpawns = timeBetweenSpawns;
-	}
-	
-	void Update () {
+
+        Bomber.OnWaveDone += ChangeDropStatusToFalse;
+        Bomber.OnWaveStart += ChangeDropStatusToTrue;
+    }
+
+    void Update() {
         currentTimeBetweenSpawns -= 1 * Time.deltaTime;
-        if(currentTimeBetweenSpawns <= 0)
+
+        if (currentTimeBetweenSpawns <= 0)
         {
-            StartCoroutine(DropBombs());
-            if(BombDropped != null)
+            if (CanDropBombs)
             {
-                BombDropped(bombsPerSpawn);
+                StartCoroutine(DropBombs());
+                if (BombDropped != null)
+                {
+                    BombDropped(bombsPerSpawn);
+                }
             }
+
             currentTimeBetweenSpawns = timeBetweenSpawns;
         }
-	}
+    }
 
     IEnumerator DropBombs()
     {
@@ -37,5 +48,15 @@ public class BombSpawner : MonoBehaviour {
             yield return new WaitForSeconds(.1f);
             Debug.Log("#" + i + "Bomb dropped!");
         }
+    }
+
+    void ChangeDropStatusToTrue()
+    {
+        CanDropBombs = true;
+    }
+
+    void ChangeDropStatusToFalse()
+    {
+        CanDropBombs = false;
     }
 }
