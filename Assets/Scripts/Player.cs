@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 
 
     void Start() {
+        Cursor.visible = false;
+
         minX = GetMinXValue();
         maxX = GetMaxXValue();
 
